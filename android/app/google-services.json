@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1013156330053",
+    "project_id": "agrotrade-69e23",
+    "storage_bucket": "agrotrade-69e23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013156330053:android:dac72413f220d4c8ac012c",
+        "android_client_info": {
+          "package_name": "com.example.agro_trading"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013156330053-mn7al9ckc35hjj3qck2g3v4ph6c073u0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuNex0HgJ-_4Yzv_DLcqBilVfseC1NaCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013156330053-mn7al9ckc35hjj3qck2g3v4ph6c073u0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013156330053:android:5b85f5b0762a48b8ac012c",
+        "android_client_info": {
+          "package_name": "com.example.trading_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1013156330053-mn7al9ckc35hjj3qck2g3v4ph6c073u0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuNex0HgJ-_4Yzv_DLcqBilVfseC1NaCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013156330053-mn7al9ckc35hjj3qck2g3v4ph6c073u0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
