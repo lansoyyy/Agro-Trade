@@ -1,4 +1,6 @@
+import 'package:agro_trading/screens/my_trade_screen.dart';
 import 'package:agro_trading/screens/seller_screens/exchange_product/exchange_screen.dart';
+import 'package:agro_trading/screens/seller_screens/my_offer_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -106,6 +108,23 @@ class CustomDrawer extends StatelessWidget {
                           onTap: () {
                             // FirebaseAuth.instance.signOut();
                             // Navigator.pushReplacementNamed(context, '/login');
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const MyTradeScreen()));
+                          },
+                        ),
+                        ListTile(
+                          title: const Text('Offers'),
+                          leading: const Icon(Icons.card_giftcard),
+                          trailing: const Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                          ),
+                          onTap: () {
+                            // FirebaseAuth.instance.signOut();
+                            // Navigator.pushReplacementNamed(context, '/login');
+
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const MyOfferScreen()));
                           },
                         ),
                       ],

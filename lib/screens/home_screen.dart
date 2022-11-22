@@ -1,9 +1,11 @@
 import 'package:agro_trading/bloc/blocs.dart';
+import 'package:agro_trading/screens/trading_screen.dart';
 import 'package:agro_trading/widgets/navbar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:get_storage/get_storage.dart';
 import '../widgets/widgets.dart';
 import 'custom_drawer.dart';
 
@@ -14,6 +16,8 @@ class HomeScreen extends StatelessWidget {
         settings: const RouteSettings(name: routeName),
         builder: (_) => HomeScreen());
   }
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -72,69 +76,96 @@ class HomeScreen extends StatelessWidget {
                         .copyWith(color: Colors.black))),
           ),
           //ProductCard(product: Product.product[0],)
-          StreamBuilder<Object>(
-              stream: null,
-              builder: (context, snapshot) {
+          StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection('exchange').snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  print('error');
+                  return const Center(child: Text('Error'));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  print('waiting');
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 50),
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.black,
+                    )),
+                  );
+                }
+
+                final data = snapshot.requireData;
                 return Expanded(
                   child: SizedBox(
                     child: GridView.builder(
+                        itemCount: snapshot.data?.size ?? 0,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2),
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            child: Container(
-                              height: 100,
-                              width: 150,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 80),
-                                child: Container(
-                                  color: Colors.black38,
-                                  width: 100,
-                                  height: 5,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Product 1',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
+                            child: GestureDetector(
+                              onTap: () {
+                                box.write('itemId', data.docs[index].id);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const TradingScreen()));
+                              },
+                              child: Container(
+                                height: 100,
+                                width: 150,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 80),
+                                  child: Container(
+                                    color: Colors.black38,
+                                    width: 100,
+                                    height: 5,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            data.docs[index]['exchangeName'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
                                           ),
-                                        ),
-                                        const Text(
-                                          'Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12,
+                                          Text(
+                                            data.docs[index]['exchangeDesc'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 12,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          'Location: Impasugong Bukidnon',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: Colors.indigoAccent[900],
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12,
+                                          Text(
+                                            'Location: ${data.docs[index]['exchangeAddress']}',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: Colors.indigoAccent[900],
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 12,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              decoration: BoxDecoration(
-                                image: const DecorationImage(
-                                    image: NetworkImage(
-                                      'https://th.bing.com/th/id/OIP.Aykdu-wK0OxT9ulEzkJWjAHaD_?pid=ImgDet&rs=1',
-                                    ),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.white,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                        data.docs[index]['imageUrl'][0],
+                                      ),
+                                      fit: BoxFit.cover),
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           );
