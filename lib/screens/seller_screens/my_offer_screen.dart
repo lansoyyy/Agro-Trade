@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyOfferScreen extends StatelessWidget {
@@ -11,7 +13,7 @@ class MyOfferScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.blue.shade900,
         title: const Text(
-          'Trades',
+          'My Offer',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -19,29 +21,50 @@ class MyOfferScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: StreamBuilder<Object>(
-          stream: null,
-          builder: (context, snapshot) {
+      body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('trade')
+              .where('myId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              print(snapshot.error);
+              return const Center(child: Text('Error'));
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              print('waiting');
+              return const Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: Center(
+                    child: CircularProgressIndicator(
+                  color: Colors.black,
+                )),
+              );
+            }
+
+            final data = snapshot.requireData;
             return ListView.builder(
+              itemCount: snapshot.data?.size ?? 0,
               itemBuilder: ((context, index) {
-                return const Padding(
-                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                   child: ExpansionTile(
                     title: Text(
-                      'Product 1',
-                      style: TextStyle(
+                      data.docs[index]['productOfferedName'],
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),
                     ),
                     subtitle: Text(
-                      'Location: Impasugong Bukidnon',
-                      style: TextStyle(
+                      'Location: ' + data.docs[index]['productOfferedLocation'],
+                      style: const TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 10,
                       ),
                     ),
-                    leading: Padding(
+                    leading: const Padding(
                       padding: EdgeInsets.all(5.0),
                       child: CircleAvatar(
                         minRadius: 25,
@@ -50,7 +73,7 @@ class MyOfferScreen extends StatelessWidget {
                       ),
                     ),
                     children: [
-                      Text(
+                      const Text(
                         'trade for:',
                         style: TextStyle(
                           color: Colors.grey,
@@ -60,13 +83,13 @@ class MyOfferScreen extends StatelessWidget {
                       ),
                       ListTile(
                         title: Text(
-                          'Product 1',
-                          style: TextStyle(
+                          data.docs[index]['myOfferName'],
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
                         ),
-                        leading: Padding(
+                        leading: const Padding(
                           padding: EdgeInsets.all(5.0),
                           child: CircleAvatar(
                             minRadius: 25,
@@ -75,18 +98,18 @@ class MyOfferScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        'Pending',
-                        style: TextStyle(
+                        data.docs[index]['status'],
+                        style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                     ],

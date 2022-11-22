@@ -111,8 +111,7 @@ class HomeScreen extends StatelessWidget {
                               onTap: () {
                                 box.write('itemId', data.docs[index].id);
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const TradingScreen()));
+                                    builder: (context) => TradingScreen()));
                               },
                               child: Container(
                                 height: 100,
