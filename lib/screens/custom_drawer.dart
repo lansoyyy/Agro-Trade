@@ -97,6 +97,17 @@ class CustomDrawer extends StatelessWidget {
                                 route: ExchangeScreen.id),
                           ],
                         ),
+                        ListTile(
+                          title: const Text('Trades'),
+                          leading: const Icon(Icons.receipt_long_rounded),
+                          trailing: const Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                          ),
+                          onTap: () {
+                            // FirebaseAuth.instance.signOut();
+                            // Navigator.pushReplacementNamed(context, '/login');
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -110,7 +121,7 @@ class CustomDrawer extends StatelessWidget {
                       FirebaseAuth.instance.signOut();
                       Navigator.pushReplacementNamed(context, '/login');
                     },
-                  )
+                  ),
                 ],
               ),
             );
