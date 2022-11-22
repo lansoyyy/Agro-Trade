@@ -58,9 +58,11 @@ class MyTradeScreen extends StatelessWidget {
                         fontSize: 14,
                       ),
                     ),
-                    leading: const Padding(
-                      padding: EdgeInsets.all(5.0),
+                    leading: Padding(
+                      padding: const EdgeInsets.all(5.0),
                       child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            data.docs[index]['productOfferedImage']),
                         minRadius: 25,
                         maxRadius: 25,
                         backgroundColor: Colors.black,
@@ -91,9 +93,11 @@ class MyTradeScreen extends StatelessWidget {
                             fontSize: 10,
                           ),
                         ),
-                        leading: const Padding(
-                          padding: EdgeInsets.all(5.0),
+                        leading: Padding(
+                          padding: const EdgeInsets.all(5.0),
                           child: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(data.docs[index]['myOfferImage']),
                             minRadius: 25,
                             maxRadius: 25,
                             backgroundColor: Colors.black,
