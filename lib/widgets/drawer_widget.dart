@@ -22,15 +22,15 @@ class _MyDrawerState extends State<DrawerWidget> {
           padding: const EdgeInsets.only(top: 0),
           children: <Widget>[
             UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
-                color: Colors.black,
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
               ),
               accountEmail: TextRegular(
-                  text: 'johndoe@gmail.com', fontSize: 0, color: Colors.white),
+                  text: 'johndoe@gmail.com', fontSize: 12, color: Colors.grey),
               accountName: TextBold(
                 text: 'John Doe',
                 fontSize: 18,
-                color: Colors.white,
+                color: Colors.grey,
               ),
               currentAccountPicture: const Padding(
                 padding: EdgeInsets.all(5.0),
