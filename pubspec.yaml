@@ -1,4 +1,4 @@
-name: agro_trading
+name: marketdo
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -33,31 +33,18 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons:
-  fluttertoast:
-  provider:
-  flutter_easyloading:
-  flutter_bloc:
-  firebase_core: ^1.12.0
-  firebase_auth:
-  cloud_firestore:
-  carousel_slider:
-  equatable:
+  cupertino_icons: ^1.0.2
   get:
-  image_picker:
-  charts_flutter:
-  firebase_storage:
-  cached_network_image:
-  hive:
-  hive_flutter:
-  search_page:
-  flutterfire_ui:
-  flutter_slidable:
   get_storage:
-  firebase_core_platform_interface: 4.5.1
-
-
-  pay: ^1.0.7
+  firebase_auth:
+  google_sign_in:
+  firebase_core:
+  cloud_firestore:
+  firebase_storage:
+  image_picker:
+  riverpod:
+  flutter_riverpod:
+  material_floating_search_bar:
 
 dev_dependencies:
   flutter_test:
@@ -82,9 +69,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -97,13 +83,13 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
+  fonts:
+    - family: QRegular
+      fonts:
+        - asset: assets/fonts/Quicksand-Regular.ttf
+    - family: QBold
+      fonts:
+        - asset: assets/fonts/Quicksand-SemiBold.ttf
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
