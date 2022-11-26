@@ -81,6 +81,18 @@ class _MyDrawerState extends State<DrawerWidget> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.dashboard),
+              title: TextBold(
+                text: 'My Offers',
+                fontSize: 12,
+                color: Colors.black,
+              ),
+              onTap: () {
+                // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                //     builder: (context) => const MyPostPage()));
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.change_circle_outlined),
               title: TextBold(
                 text: 'Trade Request',
