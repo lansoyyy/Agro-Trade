@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:marketdo/screens/home_screen.dart';
+import 'package:marketdo/screens/pages/profile_screen.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -49,8 +51,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.black,
               ),
               onTap: () {
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const HomeScreen()));
               },
             ),
             ListTile(
@@ -61,8 +63,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.black,
               ),
               onTap: () {
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ProfileScreen()));
               },
             ),
             ListTile(
