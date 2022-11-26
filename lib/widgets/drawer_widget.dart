@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:marketdo/screens/home_screen.dart';
+import 'package:marketdo/screens/pages/my_offers_page.dart';
 import 'package:marketdo/screens/pages/my_post_page.dart';
 import 'package:marketdo/screens/pages/profile_screen.dart';
 import 'package:marketdo/widgets/text_widget.dart';
@@ -81,15 +82,15 @@ class _MyDrawerState extends State<DrawerWidget> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.dashboard),
+              leading: const Icon(Icons.volunteer_activism_rounded),
               title: TextBold(
                 text: 'My Offers',
                 fontSize: 12,
                 color: Colors.black,
               ),
               onTap: () {
-                // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                //     builder: (context) => const MyPostPage()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const MyOffersPage()));
               },
             ),
             ListTile(
