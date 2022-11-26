@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get_storage/get_storage.dart';
 import 'package:marketdo/screens/home_screen.dart';
+import 'package:marketdo/screens/pages/my_post_page.dart';
 import 'package:marketdo/screens/pages/profile_screen.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
@@ -63,7 +64,7 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.black,
               ),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const ProfileScreen()));
               },
             ),
@@ -75,8 +76,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.black,
               ),
               onTap: () {
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const MyPostPage()));
               },
             ),
             ListTile(
