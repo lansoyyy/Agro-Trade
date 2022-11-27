@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketdo/auth/signup_page.dart.dart';
 import 'package:marketdo/widgets/button_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
@@ -104,7 +105,10 @@ class LoginPage extends StatelessWidget {
                     fontSize: 14,
                     color: Colors.grey),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SignupPage()));
+                  },
                   child: TextBold(
                       text: "Register now", fontSize: 16, color: Colors.black),
                 ),
