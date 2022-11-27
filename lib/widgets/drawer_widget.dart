@@ -143,8 +143,7 @@ class _MyDrawerState extends State<DrawerWidget> {
                               onPressed: () {
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginPage()));
+                                        builder: (context) => LoginPage()));
                               },
                               child: const Text(
                                 'Continue',
