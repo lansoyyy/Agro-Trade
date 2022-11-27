@@ -8,6 +8,8 @@ import 'package:marketdo/screens/pages/profile_screen.dart';
 import 'package:marketdo/screens/pages/trade_request_page.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
+import '../auth/login_page.dart.dart';
+
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({Key? key}) : super(key: key);
 
@@ -139,10 +141,10 @@ class _MyDrawerState extends State<DrawerWidget> {
                             ),
                             FlatButton(
                               onPressed: () {
-                                // Navigator.of(context).pushReplacement(
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const LogInPage()));
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginPage()));
                               },
                               child: const Text(
                                 'Continue',
