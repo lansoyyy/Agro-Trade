@@ -69,6 +69,10 @@ class HomeTab extends StatelessWidget {
                                 text: 'Item Description',
                                 fontSize: 12,
                                 color: Colors.grey),
+                            TextRegular(
+                                text: 'Item Needed',
+                                fontSize: 10,
+                                color: Colors.grey),
                           ],
                         ),
                         width: 100,
