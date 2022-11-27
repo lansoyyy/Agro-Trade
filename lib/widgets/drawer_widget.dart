@@ -155,6 +155,23 @@ class _MyDrawerState extends State<DrawerWidget> {
                         ));
               },
             ),
+            const SizedBox(
+              height: 50,
+            ),
+            const Divider(),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 20,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),
