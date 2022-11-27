@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketdo/auth/signup_page.dart.dart';
+import 'package:marketdo/screens/home_screen.dart';
 import 'package:marketdo/widgets/button_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
@@ -61,6 +62,7 @@ class LoginPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
               child: TextFormField(
+                obscureText: true,
                 style: const TextStyle(
                     color: Colors.black, fontFamily: 'QRegular'),
                 onChanged: (_input) {
@@ -93,7 +95,12 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            ButtonWidget(onPressed: () {}, text: 'Login'),
+            ButtonWidget(
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const HomeScreen()));
+                },
+                text: 'Login'),
             const Expanded(
               child: SizedBox(),
             ),
@@ -106,8 +113,8 @@ class LoginPage extends StatelessWidget {
                     color: Colors.grey),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SignupPage()));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => SignupPage()));
                   },
                   child: TextBold(
                       text: "Register now", fontSize: 16, color: Colors.black),
