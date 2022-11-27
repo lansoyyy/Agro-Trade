@@ -163,7 +163,7 @@ class _MyDrawerState extends State<DrawerWidget> {
               height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 30, right: 30),
               child: Image.asset(
                 'assets/images/logo.png',
                 width: 20,
