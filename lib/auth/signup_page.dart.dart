@@ -1,15 +1,180 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:marketdo/widgets/button_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
 import 'login_page.dart.dart';
 
-class SignupPage extends StatelessWidget {
-  SignupPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  var _value = false;
   late String name;
+
   late String contactNumber;
+
   late String address;
+
+  var hasLoaded = false;
+
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+
+  late String fileName = '';
+
+  late File imageFile;
+
+  late String imageURL = '';
+
+  late IconData icon1 = Icons.add;
+  late IconData icon2 = Icons.add;
+
+  Future<void> uploadPicture(String inputSource) async {
+    final picker = ImagePicker();
+    XFile pickedImage;
+    try {
+      pickedImage = (await picker.pickImage(
+          source: inputSource == 'camera'
+              ? ImageSource.camera
+              : ImageSource.gallery,
+          maxWidth: 1920))!;
+
+      fileName = path.basename(pickedImage.path);
+      imageFile = File(pickedImage.path);
+
+      try {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: AlertDialog(
+                title: Row(
+              children: const [
+                CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  'Loading . . .',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'QRegular'),
+                ),
+              ],
+            )),
+          ),
+        );
+
+        await firebase_storage.FirebaseStorage.instance
+            .ref('ID/$fileName')
+            .putFile(imageFile);
+        imageURL = await firebase_storage.FirebaseStorage.instance
+            .ref('ID/$fileName')
+            .getDownloadURL();
+
+        setState(() {
+          hasLoaded = true;
+          icon1 = Icons.check;
+        });
+
+        Navigator.of(context).pop();
+      } on firebase_storage.FirebaseException catch (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      }
+    } catch (err) {
+      if (kDebugMode) {
+        print(err);
+      }
+    }
+  }
+
+  var hasLoaded2 = false;
+
+  late String fileName2 = '';
+
+  late File imageFile2;
+
+  late String imageURL2 = '';
+
+  Future<void> uploadPicture1(String inputSource) async {
+    final picker = ImagePicker();
+    XFile pickedImage;
+    try {
+      pickedImage = (await picker.pickImage(
+          source: inputSource == 'camera'
+              ? ImageSource.camera
+              : ImageSource.gallery,
+          maxWidth: 1920))!;
+
+      fileName = path.basename(pickedImage.path);
+      imageFile = File(pickedImage.path);
+
+      try {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: AlertDialog(
+                title: Row(
+              children: const [
+                CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  'Loading . . .',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'QRegular'),
+                ),
+              ],
+            )),
+          ),
+        );
+
+        await firebase_storage.FirebaseStorage.instance
+            .ref('ID/$fileName')
+            .putFile(imageFile);
+        imageURL = await firebase_storage.FirebaseStorage.instance
+            .ref('ID/$fileName')
+            .getDownloadURL();
+
+        setState(() {
+          hasLoaded2 = true;
+          icon2 = Icons.check;
+        });
+
+        Navigator.of(context).pop();
+      } on firebase_storage.FirebaseException catch (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      }
+    } catch (err) {
+      if (kDebugMode) {
+        print(err);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +262,7 @@ class SignupPage extends StatelessWidget {
                 style: const TextStyle(
                     color: Colors.black, fontFamily: 'QRegular'),
                 onChanged: (_input) {
-                  name = _input;
+                  address = _input;
                 },
                 decoration: InputDecoration(
                   suffixIcon: const Icon(
@@ -133,12 +298,14 @@ class SignupPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    uploadPicture('gallery');
+                  },
                   child: Container(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.add, size: 32),
+                        Icon(icon1, size: 32),
                         const SizedBox(
                           height: 20,
                         ),
@@ -156,12 +323,14 @@ class SignupPage extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    uploadPicture1('gallery');
+                  },
                   child: Container(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Icon(Icons.add, size: 32),
+                        Icon(icon2, size: 32),
                         const SizedBox(
                           height: 20,
                         ),
@@ -183,46 +352,66 @@ class SignupPage extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            ButtonWidget(
-                onPressed: () {
-                  showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (context) {
-                        return Dialog(
-                          child: SizedBox(
-                              height: 300,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    Icons.check_circle_outline_outlined,
-                                    size: 75,
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  TextBold(
-                                      text: 'Registered Succesfully!',
-                                      fontSize: 18,
-                                      color: Colors.black),
-                                  const SizedBox(
-                                    height: 50,
-                                  ),
-                                  ButtonWidget(
-                                      onPressed: () {
-                                        Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginPage()));
-                                      },
-                                      text: 'Continue'),
-                                ],
-                              )),
-                        );
-                      });
-                },
-                text: 'Register'),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: CheckboxListTile(
+                  controlAffinity: ListTileControlAffinity.leading,
+                  title: TextRegular(
+                    text:
+                        'By clicking Sign up, you agree to Terms of Service and that have read our Privacy Policy',
+                    fontSize: 12,
+                    color: Colors.black,
+                  ),
+                  value: _value,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _value = !_value;
+                    });
+                  }),
+            ),
+            Visibility(
+              visible: _value,
+              child: ButtonWidget(
+                  onPressed: () {
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return Dialog(
+                            child: SizedBox(
+                                height: 300,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.check_circle_outline_outlined,
+                                      size: 75,
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    TextBold(
+                                        text: 'Registered Succesfully!',
+                                        fontSize: 18,
+                                        color: Colors.black),
+                                    const SizedBox(
+                                      height: 50,
+                                    ),
+                                    ButtonWidget(
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LoginPage()));
+                                        },
+                                        text: 'Continue'),
+                                  ],
+                                )),
+                          );
+                        });
+                  },
+                  text: 'Register'),
+            ),
             const SizedBox(
               height: 50,
             ),
