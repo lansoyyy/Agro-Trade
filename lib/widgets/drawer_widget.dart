@@ -39,7 +39,7 @@ class _MyDrawerState extends State<DrawerWidget> {
                 stream: userData,
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(child: Text('Loading'));
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return const Center(child: Text('Something went wrong'));
                   } else if (snapshot.connectionState ==
