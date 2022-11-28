@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,11 @@ class DrawerWidget extends StatefulWidget {
 class _MyDrawerState extends State<DrawerWidget> {
   final box = GetStorage();
 
+  final Stream<DocumentSnapshot> userData = FirebaseFirestore.instance
+      .collection('Users')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .snapshots();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -29,26 +35,41 @@ class _MyDrawerState extends State<DrawerWidget> {
         child: ListView(
           padding: const EdgeInsets.only(top: 0),
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-              ),
-              accountEmail: TextRegular(
-                  text: 'johndoe@gmail.com', fontSize: 12, color: Colors.grey),
-              accountName: TextBold(
-                text: 'John Doe',
-                fontSize: 18,
-                color: Colors.grey,
-              ),
-              currentAccountPicture: const Padding(
-                padding: EdgeInsets.all(5.0),
-                child: CircleAvatar(
-                  minRadius: 50,
-                  maxRadius: 50,
-                  backgroundImage: AssetImage('assets/images/profile.png'),
-                ),
-              ),
-            ),
+            StreamBuilder<DocumentSnapshot>(
+                stream: userData,
+                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: Text('Loading'));
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Something went wrong'));
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  dynamic data = snapshot.data;
+                  return UserAccountsDrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                    ),
+                    accountEmail: TextRegular(
+                        text: data['email'], fontSize: 12, color: Colors.grey),
+                    accountName: TextBold(
+                      text: data['name'],
+                      fontSize: 18,
+                      color: Colors.grey,
+                    ),
+                    currentAccountPicture: const Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: CircleAvatar(
+                        minRadius: 50,
+                        maxRadius: 50,
+                        backgroundImage:
+                            AssetImage('assets/images/profile.png'),
+                      ),
+                    ),
+                  );
+                }),
             ListTile(
               leading: const Icon(Icons.home),
               title: TextBold(
