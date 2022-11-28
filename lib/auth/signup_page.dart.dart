@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:marketdo/services/cloud_function/add_user.dart';
 import 'package:marketdo/widgets/button_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -21,6 +23,8 @@ class _SignupPageState extends State<SignupPage> {
   late String name;
 
   late String contactNumber;
+  late String email;
+  late String password;
 
   late String address;
 
@@ -154,7 +158,7 @@ class _SignupPageState extends State<SignupPage> {
         await firebase_storage.FirebaseStorage.instance
             .ref('ID/$fileName')
             .putFile(imageFile);
-        imageURL = await firebase_storage.FirebaseStorage.instance
+        imageURL2 = await firebase_storage.FirebaseStorage.instance
             .ref('ID/$fileName')
             .getDownloadURL();
 
@@ -184,10 +188,10 @@ class _SignupPageState extends State<SignupPage> {
         child: Column(
           children: [
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             Image.asset(
-              'assets/images/signup.gif',
+              'assets/images/logo.png',
               height: 180,
             ),
             Padding(
@@ -288,6 +292,71 @@ class _SignupPageState extends State<SignupPage> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              child: TextFormField(
+                style: const TextStyle(
+                    color: Colors.black, fontFamily: 'QRegular'),
+                onChanged: (_input) {
+                  email = _input;
+                },
+                decoration: InputDecoration(
+                  suffixIcon: const Icon(
+                    Icons.email,
+                    color: Colors.black,
+                  ),
+                  fillColor: Colors.grey[200],
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.white),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  labelText: 'Email',
+                  labelStyle: const TextStyle(
+                    fontFamily: 'QRegular',
+                    color: Colors.black,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              child: TextFormField(
+                obscureText: true,
+                style: const TextStyle(
+                    color: Colors.black, fontFamily: 'QRegular'),
+                onChanged: (_input) {
+                  password = _input;
+                },
+                decoration: InputDecoration(
+                  suffixIcon: const Icon(
+                    Icons.lock,
+                    color: Colors.black,
+                  ),
+                  fillColor: Colors.grey[200],
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.white),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(width: 1, color: Colors.black),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  labelText: 'Password',
+                  labelStyle: const TextStyle(
+                    fontFamily: 'QRegular',
+                    color: Colors.black,
+                    fontSize: 12.0,
+                  ),
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
             TextBold(
                 text: 'Picture of your Valid ID',
@@ -372,43 +441,76 @@ class _SignupPageState extends State<SignupPage> {
             Visibility(
               visible: _value,
               child: ButtonWidget(
-                  onPressed: () {
-                    showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) {
-                          return Dialog(
-                            child: SizedBox(
-                                height: 300,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(
-                                      Icons.check_circle_outline_outlined,
-                                      size: 75,
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    TextBold(
-                                        text: 'Registered Succesfully!',
-                                        fontSize: 18,
-                                        color: Colors.black),
-                                    const SizedBox(
-                                      height: 50,
-                                    ),
-                                    ButtonWidget(
-                                        onPressed: () {
-                                          Navigator.of(context).pushReplacement(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LoginPage()));
-                                        },
-                                        text: 'Continue'),
-                                  ],
-                                )),
-                          );
-                        });
+                  onPressed: () async {
+                    try {
+                      await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: email, password: password);
+
+                      showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return Dialog(
+                              child: SizedBox(
+                                  height: 300,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.check_circle_outline_outlined,
+                                        size: 75,
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      TextBold(
+                                          text: 'Registered Succesfully!',
+                                          fontSize: 18,
+                                          color: Colors.black),
+                                      const SizedBox(
+                                        height: 50,
+                                      ),
+                                      ButtonWidget(
+                                          onPressed: () {
+                                            addUser(
+                                                name,
+                                                contactNumber,
+                                                address,
+                                                imageURL,
+                                                imageURL2,
+                                                email);
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoginPage()));
+                                          },
+                                          text: 'Continue'),
+                                    ],
+                                  )),
+                            );
+                          });
+                    } catch (e) {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                content: TextRegular(
+                                    text: "$e",
+                                    color: Colors.black,
+                                    fontSize: 12),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(true),
+                                    child: TextBold(
+                                        text: 'Close',
+                                        color: Colors.black,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ));
+                    }
                   },
                   text: 'Register'),
             ),
