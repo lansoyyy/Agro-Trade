@@ -93,7 +93,7 @@ class _AddProductPageState extends State<AddProductPage> {
 
   var dropDownValue = 1;
 
-  var productCategory = 'Fruits and Vegetables';
+  var productCategory = 'Vegetables & Fruits';
 
   @override
   Widget build(BuildContext context) {

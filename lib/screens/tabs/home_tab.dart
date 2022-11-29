@@ -16,31 +16,71 @@ class HomeTab extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          SizedBox(
-            height: 175,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: ((context, index) {
-                  return Container(
-                    child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 20, left: 10),
-                        child: TextBold(
-                            text: 'Category',
-                            fontSize: 14,
-                            color: Colors.black),
-                      ),
-                    ),
-                    margin: const EdgeInsets.all(5),
-                    height: 100,
-                    width: 250,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5)),
+          StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('categories')
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  print('error');
+                  return const Center(child: Text('Error'));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  print('waiting');
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 50),
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.black,
+                    )),
                   );
-                })),
-          ),
+                }
+
+                final data = snapshot.requireData;
+                return SizedBox(
+                  height: 175,
+                  child: ListView.builder(
+                      itemCount: snapshot.data?.size ?? 0,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: ((context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            print(data.docs[index]['name']);
+                          },
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Container(
+                                width: double.infinity,
+                                color: Colors.black38,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 20, left: 10, top: 10),
+                                  child: TextBold(
+                                      text: data.docs[index]['name'],
+                                      fontSize: 14,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ),
+                            margin: const EdgeInsets.all(5),
+                            height: 100,
+                            width: 250,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    data.docs[index]['imageUrl'],
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5)),
+                          ),
+                        );
+                      })),
+                );
+              }),
           const SizedBox(
             height: 20,
           ),
@@ -79,41 +119,44 @@ class HomeTab extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              padding: const EdgeInsets.all(5),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextBold(
-                                      text: data.docs[index]['prodName'],
-                                      fontSize: 14,
-                                      color: Colors.white),
-                                  SizedBox(
-                                    width: 150,
-                                    child: TextRegular(
-                                        text: data.docs[index]['prodDesc'],
-                                        fontSize: 12,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextBold(
+                                        text: data.docs[index]['prodName'],
+                                        fontSize: 14,
                                         color: Colors.white),
-                                  ),
-                                  TextRegular(
-                                      text: data.docs[index]['prefferedItem'],
-                                      fontSize: 10,
-                                      color: Colors.white),
-                                ],
-                              ),
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    opacity: 120,
-                                    image: NetworkImage(
-                                      data.docs[index]['imageURL'],
+                                    SizedBox(
+                                      width: 150,
+                                      child: TextRegular(
+                                          text: data.docs[index]['prodDesc'],
+                                          fontSize: 12,
+                                          color: Colors.white),
                                     ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(5)),
+                                    TextRegular(
+                                        text: data.docs[index]['prefferedItem'],
+                                        fontSize: 10,
+                                        color: Colors.white),
+                                  ],
+                                ),
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      opacity: 120,
+                                      image: NetworkImage(
+                                        data.docs[index]['imageURL'],
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(5)),
+                              ),
                             ),
                           );
                         }),
