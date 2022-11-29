@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  final tabs = [const HomeTab(), const MessagesTab()];
+  final tabs = [HomeTab(), const MessagesTab()];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ? IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AddProductPage()));
+                        builder: (context) => const AddProductPage()));
                   },
                   icon: const Icon(Icons.add),
                 )

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
@@ -47,44 +48,78 @@ class HomeTab extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Expanded(
-            child: SizedBox(
-              child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextBold(
-                                text: 'Item Name',
-                                fontSize: 14,
-                                color: Colors.black),
-                            TextRegular(
-                                text: 'Item Description',
-                                fontSize: 12,
-                                color: Colors.grey),
-                            TextRegular(
-                                text: 'Item Needed',
-                                fontSize: 10,
-                                color: Colors.grey),
-                          ],
-                        ),
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5)),
-                      ),
-                    );
-                  }),
-            ),
-          )
+          StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection('products').snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  print('error');
+                  return const Center(child: Text('Error'));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  print('waiting');
+                  return const Padding(
+                    padding: EdgeInsets.only(top: 50),
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.black,
+                    )),
+                  );
+                }
+
+                final data = snapshot.requireData;
+                return Expanded(
+                  child: SizedBox(
+                    child: GridView.builder(
+                        itemCount: snapshot.data?.size ?? 0,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2),
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextBold(
+                                      text: data.docs[index]['prodName'],
+                                      fontSize: 14,
+                                      color: Colors.white),
+                                  SizedBox(
+                                    width: 150,
+                                    child: TextRegular(
+                                        text: data.docs[index]['prodDesc'],
+                                        fontSize: 12,
+                                        color: Colors.white),
+                                  ),
+                                  TextRegular(
+                                      text: data.docs[index]['prefferedItem'],
+                                      fontSize: 10,
+                                      color: Colors.white),
+                                ],
+                              ),
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    opacity: 120,
+                                    image: NetworkImage(
+                                      data.docs[index]['imageURL'],
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(5)),
+                            ),
+                          );
+                        }),
+                  ),
+                );
+              })
         ],
       ),
     );
