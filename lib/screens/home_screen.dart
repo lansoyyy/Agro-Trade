@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:marketdo/screens/tabs/home_tab.dart';
 import 'package:marketdo/widgets/appbar_widget.dart';
 import 'package:marketdo/widgets/drawer_widget.dart';
+import 'package:marketdo/widgets/text_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +21,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       drawer: const DrawerWidget(),
-      appBar: AppbarWidget('Home'),
+      appBar: AppBar(
+        elevation: 0,
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white,
+        title: TextRegular(text: 'Home', fontSize: 18, color: Colors.black),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
       body: SafeArea(child: tabs[_currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.grey,
