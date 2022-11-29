@@ -28,10 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
         title: TextRegular(text: 'Home', fontSize: 18, color: Colors.black),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.add),
-          ),
+          _currentIndex == 0
+              ? IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.add),
+                )
+              : const SizedBox(),
         ],
       ),
       body: SafeArea(child: tabs[_currentIndex]),
