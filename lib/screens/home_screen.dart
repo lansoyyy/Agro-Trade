@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:marketdo/screens/pages/add_product_page.dart';
 import 'package:marketdo/screens/tabs/home_tab.dart';
-import 'package:marketdo/widgets/appbar_widget.dart';
 import 'package:marketdo/widgets/drawer_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.grey[200],
       drawer: const DrawerWidget(),
       appBar: AppBar(
-        elevation: 0,
+        elevation: 3,
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         title: TextRegular(text: 'Home', fontSize: 18, color: Colors.black),
@@ -30,7 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           _currentIndex == 0
               ? IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AddProductPage()));
+                  },
                   icon: const Icon(Icons.add),
                 )
               : const SizedBox(),
