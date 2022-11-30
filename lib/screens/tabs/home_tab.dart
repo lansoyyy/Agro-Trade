@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:marketdo/screens/pages/view_product.dart';
+import 'package:marketdo/screens/product_main.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
 class HomeTab extends StatelessWidget {
@@ -126,7 +127,11 @@ class HomeTab extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                box.write('prodId', data.docs[index].id);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const ProductMain()));
+                              },
                               child: Container(
                                 padding: const EdgeInsets.all(5),
                                 child: Column(
