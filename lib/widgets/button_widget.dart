@@ -16,12 +16,12 @@ class ButtonWidget extends StatelessWidget {
     return MaterialButton(
       height: 50,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
       ),
       minWidth: 250,
       color: Colors.black,
       onPressed: onPressed,
-      child: TextBold(text: text, fontSize: 18, color: Colors.white),
+      child: TextBold(text: text, fontSize: 14, color: Colors.white),
     );
   }
 }

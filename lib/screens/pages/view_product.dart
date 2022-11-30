@@ -55,7 +55,7 @@ class ViewProductPage extends StatelessWidget {
                           onTap: () {
                             box.write('prodId', data.docs[index].id);
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ProductMain()));
+                                builder: (context) => ProductMain()));
                           },
                           child: Container(
                             padding: const EdgeInsets.all(5),
