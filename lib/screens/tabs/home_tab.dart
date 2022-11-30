@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:marketdo/screens/pages/view_product.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  HomeTab({Key? key}) : super(key: key);
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,9 @@ class HomeTab extends StatelessWidget {
                       itemBuilder: ((context, index) {
                         return GestureDetector(
                           onTap: () {
-                            print(data.docs[index]['name']);
+                            box.write('categ', data.docs[index]['name']);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ViewProductPage()));
                           },
                           child: Container(
                             child: Align(
