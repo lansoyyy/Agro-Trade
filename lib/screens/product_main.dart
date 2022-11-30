@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:marketdo/screens/pages/add_offer_page.dart';
 import 'package:marketdo/widgets/appbar_widget.dart';
 import 'package:marketdo/widgets/button_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
@@ -115,7 +116,13 @@ class ProductMain extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: 130,
-                          child: ButtonWidget(onPressed: () {}, text: 'Trade'),
+                          child: ButtonWidget(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AddOfferPage()));
+                              },
+                              text: 'Trade'),
                         ),
                         const SizedBox(
                           width: 10,

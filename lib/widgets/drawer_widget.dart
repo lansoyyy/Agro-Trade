@@ -23,7 +23,7 @@ class _MyDrawerState extends State<DrawerWidget> {
   final box = GetStorage();
 
   final Stream<DocumentSnapshot> userData = FirebaseFirestore.instance
-      .collection('Users')
+      .collection('users')
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .snapshots();
 
@@ -90,8 +90,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.black,
               ),
               onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const ProfileScreen()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => ProfileScreen()));
               },
             ),
             ListTile(
