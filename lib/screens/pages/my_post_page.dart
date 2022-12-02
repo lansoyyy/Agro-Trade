@@ -38,56 +38,58 @@ class MyPostPage extends StatelessWidget {
 
             final data = snapshot.requireData;
             return SingleChildScrollView(
-              child: DataTable(columns: [
-                DataColumn(
-                    label: TextBold(
-                        text: 'Product\nImage',
-                        fontSize: 16,
-                        color: Colors.black)),
-                DataColumn(
-                    label: TextBold(
-                        text: 'Product\nName',
-                        fontSize: 16,
-                        color: Colors.black)),
-                DataColumn(
-                    label: TextBold(
-                        text: 'Delete', fontSize: 16, color: Colors.black)),
-              ], rows: [
-                for (int i = 0; i < data.size; i++)
-                  DataRow(cells: [
-                    DataCell(Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        image: DecorationImage(
-                            image: NetworkImage(data.docs[i]['imageURL']),
-                            fit: BoxFit.cover),
+              child: Center(
+                child: DataTable(columns: [
+                  DataColumn(
+                      label: TextBold(
+                          text: 'Product\nImage',
+                          fontSize: 16,
+                          color: Colors.black)),
+                  DataColumn(
+                      label: TextBold(
+                          text: 'Product\nName',
+                          fontSize: 16,
+                          color: Colors.black)),
+                  DataColumn(
+                      label: TextBold(
+                          text: 'Delete', fontSize: 16, color: Colors.black)),
+                ], rows: [
+                  for (int i = 0; i < data.size; i++)
+                    DataRow(cells: [
+                      DataCell(Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          image: DecorationImage(
+                              image: NetworkImage(data.docs[i]['imageURL']),
+                              fit: BoxFit.cover),
+                        ),
+                        margin: const EdgeInsets.all(2.5),
+                        height: 70,
+                        width: 50,
+                      )),
+                      DataCell(
+                        TextRegular(
+                            text: data.docs[i]['prodName'],
+                            fontSize: 14,
+                            color: Colors.grey),
                       ),
-                      margin: const EdgeInsets.all(2.5),
-                      height: 70,
-                      width: 50,
-                    )),
-                    DataCell(
-                      TextRegular(
-                          text: data.docs[i]['prodName'],
-                          fontSize: 14,
-                          color: Colors.grey),
-                    ),
-                    DataCell(
-                      IconButton(
-                        onPressed: (() {
-                          FirebaseFirestore.instance
-                              .collection('products')
-                              .doc(data.docs[i].id)
-                              .delete();
-                        }),
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.red,
+                      DataCell(
+                        IconButton(
+                          onPressed: (() {
+                            FirebaseFirestore.instance
+                                .collection('products')
+                                .doc(data.docs[i].id)
+                                .delete();
+                          }),
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
-                    ),
-                  ])
-              ]),
+                    ])
+                ]),
+              ),
             );
           }),
     );
