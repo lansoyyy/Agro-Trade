@@ -179,12 +179,3 @@ class HomeTab extends StatelessWidget {
     );
   }
 }
-
-class MessagesTab extends StatelessWidget {
-  const MessagesTab({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

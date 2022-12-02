@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marketdo/screens/pages/add_product_page.dart';
 import 'package:marketdo/screens/tabs/home_tab.dart';
+import 'package:marketdo/screens/tabs/message_tab.dart';
 import 'package:marketdo/widgets/drawer_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
@@ -14,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  final tabs = [HomeTab(), const MessagesTab()];
+  final tabs = [HomeTab(), const MessageTab()];
 
   @override
   Widget build(BuildContext context) {
