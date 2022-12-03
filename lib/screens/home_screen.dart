@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marketdo/screens/pages/add_product_page.dart';
+import 'package:marketdo/screens/pages/notif_page.dart';
 import 'package:marketdo/screens/tabs/home_tab.dart';
 import 'package:marketdo/screens/tabs/message_tab.dart';
 import 'package:marketdo/widgets/drawer_widget.dart';
@@ -39,7 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               : const SizedBox(),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const NotifPage()));
+            },
             icon: const Icon(Icons.notifications),
           ),
         ],

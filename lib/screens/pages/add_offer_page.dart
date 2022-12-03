@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:marketdo/screens/home_screen.dart';
+import 'package:marketdo/services/cloud_function/add_notif.dart';
 import 'package:marketdo/services/cloud_function/add_offer.dart';
 import 'package:marketdo/widgets/appbar_widget.dart';
 import 'package:marketdo/widgets/button_widget.dart';
@@ -282,6 +283,11 @@ class _AddProductPageState extends State<AddOfferPage> {
                                                         data['address'],
                                                         data['contactNumber'],
                                                         imageURL);
+                                                    addNotif(
+                                                        data['name'],
+                                                        data['address'],
+                                                        data['profile'],
+                                                        data1['uid']);
                                                     Navigator.of(context)
                                                         .pushReplacement(
                                                             MaterialPageRoute(
