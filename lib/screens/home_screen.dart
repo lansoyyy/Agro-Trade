@@ -38,6 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: const Icon(Icons.add),
                 )
               : const SizedBox(),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications),
+          ),
         ],
       ),
       body: SafeArea(child: tabs[_currentIndex]),
