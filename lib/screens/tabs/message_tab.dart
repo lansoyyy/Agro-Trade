@@ -47,10 +47,10 @@ class MessageTab extends StatelessWidget {
                     tileColor: Colors.white,
                     trailing: IconButton(
                       onPressed: () {
-                        //  FirebaseFirestore.instance
-                        //                               .collection('offer')
-                        //                               .doc(data.docs[index].id)
-                        //                               .delete();
+                        FirebaseFirestore.instance
+                            .collection(FirebaseAuth.instance.currentUser!.uid)
+                            .doc(data.docs[index].id)
+                            .delete();
                       },
                       icon: const Icon(Icons.delete, color: Colors.red),
                     ),
