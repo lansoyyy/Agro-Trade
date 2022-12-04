@@ -14,6 +14,7 @@ Future addNotif(
     'id': docUser.id,
     'profilePicture': profilePicture,
     'userId': userId,
+    'dateTime': DateTime.now(),
   };
 
   await docUser.set(json);

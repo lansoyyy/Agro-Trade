@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  final tabs = [HomeTab(), const MessageTab()];
+  final tabs = [HomeTab(), MessageTab()];
 
   @override
   Widget build(BuildContext context) {

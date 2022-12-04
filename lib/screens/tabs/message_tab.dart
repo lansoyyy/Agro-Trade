@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:marketdo/screens/tabs/convo_page.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
 class MessageTab extends StatelessWidget {
-  const MessageTab({Key? key}) : super(key: key);
+  MessageTab({Key? key}) : super(key: key);
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +39,25 @@ class MessageTab extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: ListTile(
-                    leading: const CircleAvatar(
-                      minRadius: 25,
-                      maxRadius: 25,
-                      backgroundImage: AssetImage('assets/images/profile.png'),
+                    onTap: () {
+                      box.write('uid', data.docs[index].id);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ConvoPage()));
+                    },
+                    title: Text(
+                      data.docs[index]['message'],
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontFamily: 'QBold'),
                     ),
-                    title: TextBold(
-                        text: 'Lance Olana', fontSize: 14, color: Colors.black),
                     subtitle: TextRegular(
-                        text: '08:45pm', fontSize: 10, color: Colors.grey),
+                        text: data.docs[index]['nameOfPersonToSend'] +
+                            ' - ' +
+                            data.docs[index]['time'],
+                        fontSize: 10,
+                        color: Colors.grey),
                     tileColor: Colors.white,
                     trailing: IconButton(
                       onPressed: () {

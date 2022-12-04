@@ -14,6 +14,7 @@ class NotifPage extends StatelessWidget {
         stream: FirebaseFirestore.instance
             .collection('notif')
             .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+            .orderBy('dateTime')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
