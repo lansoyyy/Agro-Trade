@@ -1,3 +1,6 @@
+import 'package:badges/badges.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:marketdo/screens/pages/add_product_page.dart';
 import 'package:marketdo/screens/pages/notif_page.dart';
@@ -44,7 +47,38 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const NotifPage()));
             },
-            icon: const Icon(Icons.notifications),
+            icon: Badge(
+              badgeContent: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('notif')
+                      .where('userId',
+                          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      print('error');
+                      return const Center(child: Text('Error'));
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      print('waiting');
+                      return const Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: Center(
+                            child: CircularProgressIndicator(
+                          color: Colors.black,
+                        )),
+                      );
+                    }
+
+                    final data = snapshot.requireData;
+                    return TextRegular(
+                        text: data.size.toString(),
+                        fontSize: 12,
+                        color: Colors.white);
+                  }),
+              child: const Icon(Icons.notifications),
+            ),
           ),
         ],
       ),

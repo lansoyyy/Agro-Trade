@@ -45,6 +45,7 @@ dependencies:
   riverpod:
   flutter_riverpod:
   material_floating_search_bar:
+  badges:
 
 dev_dependencies:
   flutter_test:
