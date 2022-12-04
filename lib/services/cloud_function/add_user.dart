@@ -21,7 +21,8 @@ Future addUser(
     'idfront': idfront,
     'idback': idback,
     'id': docUser.id,
-    'profile': 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
+    'profile': 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+    'status': 'Not Verified'
   };
 
   await docUser.set(json);
