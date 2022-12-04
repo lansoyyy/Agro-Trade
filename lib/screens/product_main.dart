@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:marketdo/screens/pages/add_offer_page.dart';
+import 'package:marketdo/screens/tabs/convo_page.dart';
 import 'package:marketdo/widgets/appbar_widget.dart';
 import 'package:marketdo/widgets/button_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
@@ -29,6 +30,7 @@ class ProductMain extends StatelessWidget {
           }
 
           dynamic data = snapshot.data;
+
           return Scaffold(
             backgroundColor: Colors.grey[200],
             appBar: AppbarWidget(data['prodName']),
@@ -130,7 +132,12 @@ class ProductMain extends StatelessWidget {
                         SizedBox(
                           width: 130,
                           child: ButtonWidget(
-                              onPressed: () {}, text: 'Message Seller'),
+                              onPressed: () {
+                                box.write('uid', data['uid']);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => ConvoPage()));
+                              },
+                              text: 'Message Seller'),
                         ),
                       ],
                     ),
