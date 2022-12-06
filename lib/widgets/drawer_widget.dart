@@ -50,14 +50,14 @@ class _MyDrawerState extends State<DrawerWidget> {
                   dynamic data = snapshot.data;
                   return UserAccountsDrawerHeader(
                     decoration: BoxDecoration(
-                      color: Colors.grey[100],
+                      color: Colors.green[900],
                     ),
                     accountEmail: TextRegular(
-                        text: data['email'], fontSize: 12, color: Colors.grey),
+                        text: data['email'], fontSize: 12, color: Colors.white),
                     accountName: TextBold(
                       text: data['name'],
                       fontSize: 18,
-                      color: Colors.grey,
+                      color: Colors.white,
                     ),
                     currentAccountPicture: const Padding(
                       padding: EdgeInsets.all(5.0),

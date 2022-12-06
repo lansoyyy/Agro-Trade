@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  final tabs = [HomeTab(), MessageTab()];
+  final tabs = [HomeTab(), const AddProductPage(), MessageTab()];
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
         title: TextRegular(text: 'Home', fontSize: 18, color: Colors.white),
         centerTitle: true,
         actions: [
-          _currentIndex == 0
-              ? IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const AddProductPage()));
-                  },
-                  icon: const Icon(Icons.add),
-                )
-              : const SizedBox(),
           IconButton(
             onPressed: () {
               Navigator.of(context).push(
@@ -95,14 +86,21 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.white,
             ),
             label: 'Home',
-            backgroundColor: Colors.green[400],
+            backgroundColor: Colors.green[900],
           ),
+          BottomNavigationBarItem(
+              icon: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.green[900],
+              label: 'Add Product'),
           BottomNavigationBarItem(
               icon: const Icon(
                 Icons.message,
                 color: Colors.white,
               ),
-              backgroundColor: Colors.blue[400],
+              backgroundColor: Colors.green[900],
               label: 'Messages'),
         ],
         onTap: (index) {

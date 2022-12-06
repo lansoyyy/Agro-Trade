@@ -133,33 +133,45 @@ class HomeTab extends StatelessWidget {
                                     builder: (context) => ProductMain()));
                               },
                               child: Container(
-                                padding: const EdgeInsets.all(5),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextBold(
-                                        text: data.docs[index]['prodName'],
-                                        fontSize: 14,
-                                        color: Colors.white),
-                                    SizedBox(
-                                      width: 150,
-                                      child: TextRegular(
-                                          text: data.docs[index]['prodDesc'],
-                                          fontSize: 12,
-                                          color: Colors.white),
+                                padding: const EdgeInsets.all(0),
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 100, 0, 0),
+                                  height: 10,
+                                  color: Colors.black45,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, bottom: 10),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextBold(
+                                            text: data.docs[index]['prodName'],
+                                            fontSize: 14,
+                                            color: Colors.white),
+                                        SizedBox(
+                                          width: 150,
+                                          child: TextRegular(
+                                              text: data.docs[index]
+                                                  ['prodDesc'],
+                                              fontSize: 12,
+                                              color: Colors.white),
+                                        ),
+                                        TextRegular(
+                                            text: data.docs[index]
+                                                ['prefferedItem'],
+                                            fontSize: 10,
+                                            color: Colors.white),
+                                      ],
                                     ),
-                                    TextRegular(
-                                        text: data.docs[index]['prefferedItem'],
-                                        fontSize: 10,
-                                        color: Colors.white),
-                                  ],
+                                  ),
                                 ),
                                 width: 100,
                                 height: 100,
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      opacity: 120,
                                       image: NetworkImage(
                                         data.docs[index]['imageURL'],
                                       ),

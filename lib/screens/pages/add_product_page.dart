@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:marketdo/screens/home_screen.dart';
 import 'package:marketdo/services/cloud_function/add_product.dart';
-import 'package:marketdo/widgets/appbar_widget.dart';
 import 'package:marketdo/widgets/button_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 import 'package:path/path.dart' as path;
@@ -103,7 +102,6 @@ class _AddProductPageState extends State<AddProductPage> {
         .snapshots();
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppbarWidget('Adding Product'),
       body: SingleChildScrollView(
         child: StreamBuilder<DocumentSnapshot>(
             stream: userData,
