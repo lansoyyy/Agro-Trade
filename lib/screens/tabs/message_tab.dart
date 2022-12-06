@@ -39,6 +39,12 @@ class MessageTab extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   child: ListTile(
+                    leading: CircleAvatar(
+                      minRadius: 25,
+                      maxRadius: 25,
+                      backgroundImage: NetworkImage(
+                          data.docs[index]['profilePicOfPersonToSend']),
+                    ),
                     onTap: () {
                       box.write('uid', data.docs[index].id);
                       Navigator.of(context).push(MaterialPageRoute(

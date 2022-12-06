@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:marketdo/services/cloud_function/add_message.dart';
-import 'package:marketdo/widgets/appbar_widget.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
 class ConvoPage extends StatefulWidget {
@@ -64,7 +63,26 @@ class _ConvoPageState extends State<ConvoPage> {
           dynamic data = snapshot.data;
           return Scaffold(
             backgroundColor: Colors.grey[200],
-            appBar: AppbarWidget(data['name']),
+            appBar: AppBar(
+              elevation: 3,
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.green[900],
+              title: Row(
+                children: [
+                  CircleAvatar(
+                    minRadius: 25,
+                    maxRadius: 25,
+                    backgroundImage: NetworkImage(data['profile']),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  TextRegular(
+                      text: data['name'], fontSize: 18, color: Colors.white),
+                ],
+              ),
+              centerTitle: true,
+            ),
             body: Column(
               children: [
                 const SizedBox(
@@ -123,32 +141,56 @@ class _ConvoPageState extends State<ConvoPage> {
                         ),
                       );
                     }),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    color: Colors.blue[200],
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: TextFormField(
-                        controller: messageController,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'QRegular',
-                        ),
-                        textCapitalization: TextCapitalization.sentences,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              addMessage(data['name'], messageController.text,
-                                  data['id'], myName);
-                              addMessage1(data['name'], messageController.text,
-                                  data['id'], myName);
-                              messageController.clear();
-                            },
-                            icon: Icon(Icons.send, color: Colors.blue[900]),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          width: 280,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            child: TextFormField(
+                              controller: messageController,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'QRegular',
+                              ),
+                              textCapitalization: TextCapitalization.sentences,
+                              decoration: InputDecoration(
+                                label: TextRegular(
+                                    text: 'Type your message',
+                                    fontSize: 12,
+                                    color: Colors.grey),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.green[900],
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              addMessage(data['profile'], data['name'],
+                                  messageController.text, data['id'], myName);
+                              addMessage1(data['profile'], data['name'],
+                                  messageController.text, data['id'], myName);
+                              messageController.clear();
+                            },
+                            icon: const Icon(Icons.send, color: Colors.white),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

@@ -59,13 +59,12 @@ class _MyDrawerState extends State<DrawerWidget> {
                       fontSize: 18,
                       color: Colors.white,
                     ),
-                    currentAccountPicture: const Padding(
-                      padding: EdgeInsets.all(5.0),
+                    currentAccountPicture: Padding(
+                      padding: const EdgeInsets.all(5.0),
                       child: CircleAvatar(
                         minRadius: 50,
                         maxRadius: 50,
-                        backgroundImage:
-                            AssetImage('assets/images/profile.png'),
+                        backgroundImage: NetworkImage(data['profile']),
                       ),
                     ),
                   );
@@ -90,8 +89,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.black,
               ),
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => ProfileScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const ProfileScreen()));
               },
             ),
             ListTile(

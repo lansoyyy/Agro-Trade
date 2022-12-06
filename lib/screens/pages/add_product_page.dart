@@ -310,6 +310,20 @@ class _AddProductPageState extends State<AddProductPage> {
                               ])),
                               value: 4,
                             ),
+                            DropdownMenuItem(
+                              onTap: () {
+                                productCategory = "Crops";
+                              },
+                              child: Center(
+                                  child: Row(children: const [
+                                Text("Crops",
+                                    style: TextStyle(
+                                      fontFamily: 'QRegular',
+                                      color: Colors.black,
+                                    ))
+                              ])),
+                              value: 5,
+                            ),
                           ],
                           onChanged: (value) {
                             setState(() {

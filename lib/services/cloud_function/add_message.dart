@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
 Future addMessage(
+  String profilePicOfPersonToSend,
   String nameOfPersonToSend,
   String message,
   String receiverId,
@@ -27,6 +28,7 @@ Future addMessage(
     'id': docUser.id,
     'time': tdata,
     'dateTime': DateTime.now(),
+    'profilePicOfPersonToSend': profilePicOfPersonToSend,
   };
 
   final json1 = {
@@ -36,6 +38,7 @@ Future addMessage(
     'id': docUser.id,
     'time': tdata,
     'dateTime': DateTime.now(),
+    'profilePicOfPersonToSend': profilePicOfPersonToSend,
   };
 
   await docUser1.set(json1);
@@ -44,6 +47,7 @@ Future addMessage(
 }
 
 Future addMessage1(
+  String profilePicOfPersonToSend,
   String nameOfPersonToSend,
   String message,
   String receiverId,
@@ -68,6 +72,7 @@ Future addMessage1(
     'id': docUser.id,
     'time': tdata,
     'dateTime': DateTime.now(),
+    'profilePicOfPersonToSend': profilePicOfPersonToSend,
   };
 
   final json1 = {
@@ -77,6 +82,7 @@ Future addMessage1(
     'id': docUser.id,
     'time': tdata,
     'dateTime': DateTime.now(),
+    'profilePicOfPersonToSend': profilePicOfPersonToSend,
   };
 
   await docUser1.set(json1);
