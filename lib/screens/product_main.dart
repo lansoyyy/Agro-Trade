@@ -47,6 +47,9 @@ class ProductMain extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
+                      height: 10,
+                    ),
+                    const SizedBox(
                       height: 20,
                     ),
                     Center(

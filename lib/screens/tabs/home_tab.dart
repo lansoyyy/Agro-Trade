@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:marketdo/screens/pages/view_product.dart';
 import 'package:marketdo/screens/product_main.dart';
+import 'package:marketdo/widgets/search_delegate.dart';
 import 'package:marketdo/widgets/text_widget.dart';
 
 class HomeTab extends StatelessWidget {
@@ -17,6 +18,30 @@ class HomeTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          GestureDetector(
+              onTap: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchMessages(),
+                );
+              },
+              child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                  child: Container(
+                    child: ListTile(
+                      leading: const Icon(Icons.search, color: Colors.white),
+                      title: TextRegular(
+                          text: 'Search items',
+                          fontSize: 12,
+                          color: Colors.white),
+                    ),
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.green[900],
+                    ),
+                  ))),
           TextBold(text: '    Categories', fontSize: 16, color: Colors.black),
           const SizedBox(
             height: 10,
