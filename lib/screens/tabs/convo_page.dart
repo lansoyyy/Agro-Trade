@@ -118,25 +118,56 @@ class _ConvoPageState extends State<ConvoPage> {
                           child: ListView.builder(
                               itemCount: snapshot.data?.size ?? 0,
                               itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: ListTile(
-                                    tileColor: Colors.white,
-                                    title: TextRegular(
-                                        text: data.docs[index]['message'],
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                    subtitle: TextRegular(
-                                        text: data.docs[index]
-                                            ['nameOfPersonToSend'],
-                                        fontSize: 10,
-                                        color: Colors.grey),
-                                    trailing: TextRegular(
-                                        text: data.docs[index]['time'],
-                                        fontSize: 10,
-                                        color: Colors.black),
-                                  ),
-                                );
+                                return data.docs[index]['nameOfPersonToSend'] ==
+                                        myName
+                                    ? Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            80, 5, 10, 5),
+                                        child: ListTile(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                          ),
+                                          tileColor: Colors.green[900],
+                                          title: TextRegular(
+                                              text: data.docs[index]['message'],
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                          subtitle: TextRegular(
+                                              text: data.docs[index]
+                                                  ['nameOfPersonToSend'],
+                                              fontSize: 10,
+                                              color: Colors.white),
+                                          trailing: TextRegular(
+                                              text: data.docs[index]['time'],
+                                              fontSize: 10,
+                                              color: Colors.white),
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 5, 80, 5),
+                                        child: ListTile(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                          ),
+                                          tileColor: Colors.blue[900],
+                                          title: TextRegular(
+                                              text: data.docs[index]['message'],
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                          subtitle: TextRegular(
+                                              text: data.docs[index]
+                                                  ['nameOfPersonToSend'],
+                                              fontSize: 10,
+                                              color: Colors.white),
+                                          trailing: TextRegular(
+                                              text: data.docs[index]['time'],
+                                              fontSize: 10,
+                                              color: Colors.white),
+                                        ),
+                                      );
                               }),
                         ),
                       );
