@@ -123,6 +123,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }
 
               dynamic data = snapshot.data;
+
+              double rate = (data['ratings'] / data['reviews']);
               return Column(
                 children: [
                   const SizedBox(
@@ -148,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 10,
                   ),
                   TextBold(
-                      text: 'Ratings : ' + data['ratings'].toString() + '★',
+                      text: 'Ratings : ' + rate.toStringAsFixed(1) + '★',
                       fontSize: 16,
                       color: Colors.amber),
                   const SizedBox(
