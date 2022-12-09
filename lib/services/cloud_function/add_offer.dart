@@ -2,20 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 Future addOffer(
-  String name,
-  String contactNumber,
-  String address,
-  String prodName,
-  String prodDesc,
-  String imageURL,
-  String userId,
-  String myProdName,
-  String myProdDesc,
-  String myName,
-  String myAddress,
-  String myContactNumber,
-  String myProdImage,
-) async {
+    String name,
+    String contactNumber,
+    String address,
+    String prodName,
+    String prodDesc,
+    String imageURL,
+    String userId,
+    String myProdName,
+    String myProdDesc,
+    String myName,
+    String myAddress,
+    String myContactNumber,
+    String myProdImage,
+    String prodId) async {
   final docUser = FirebaseFirestore.instance.collection('offer').doc();
 
   var dt = DateTime.now();
@@ -38,6 +38,7 @@ Future addOffer(
     'myProdName': myProdName,
     'myProdDesc': myProdDesc,
     'date': dt.month,
+    'prodId': prodId
   };
 
   await docUser.set(json);

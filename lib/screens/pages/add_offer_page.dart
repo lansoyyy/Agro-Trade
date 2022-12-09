@@ -282,7 +282,8 @@ class _AddProductPageState extends State<AddOfferPage> {
                                                         data['name'],
                                                         data['address'],
                                                         data['contactNumber'],
-                                                        imageURL);
+                                                        imageURL,
+                                                        data1['id']);
                                                     addNotif(
                                                         data['name'],
                                                         data['address'],
