@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:marketdo/widgets/text_widget.dart';
-
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../widgets/appbar_widget.dart';
 import '../../widgets/drawer_widget.dart';
 
@@ -110,41 +110,90 @@ class TradeRequestPage extends StatelessWidget {
                                                   'Rejected'
                                               ? ListTile(
                                                   onTap: () async {
-                                                    var collection =
-                                                        FirebaseFirestore
-                                                            .instance
-                                                            .collection('users')
-                                                            .where('id',
-                                                                isEqualTo: data
-                                                                            .docs[
-                                                                        index][
-                                                                    'user_id']);
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return Dialog(
+                                                            child: SizedBox(
+                                                              width: 80,
+                                                              height: 80,
+                                                              child: Center(
+                                                                child: RatingBar
+                                                                    .builder(
+                                                                  initialRating:
+                                                                      5,
+                                                                  minRating: 1,
+                                                                  direction: Axis
+                                                                      .horizontal,
+                                                                  allowHalfRating:
+                                                                      false,
+                                                                  itemCount: 5,
+                                                                  itemPadding: const EdgeInsets
+                                                                          .symmetric(
+                                                                      horizontal:
+                                                                          0.0),
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                              _) =>
+                                                                          const Icon(
+                                                                    Icons.star,
+                                                                    color: Colors
+                                                                        .amber,
+                                                                  ),
+                                                                  onRatingUpdate:
+                                                                      (_rating) async {
+                                                                    var collection = FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            'users')
+                                                                        .where(
+                                                                            'id',
+                                                                            isEqualTo:
+                                                                                data.docs[index]['user_id']);
 
-                                                    var querySnapshot =
-                                                        await collection.get();
+                                                                    var querySnapshot =
+                                                                        await collection
+                                                                            .get();
 
-                                                    for (var queryDocumentSnapshot
-                                                        in querySnapshot.docs) {
-                                                      Map<String, dynamic>
-                                                          data1 =
-                                                          queryDocumentSnapshot
-                                                              .data();
+                                                                    for (var queryDocumentSnapshot
+                                                                        in querySnapshot
+                                                                            .docs) {
+                                                                      Map<String,
+                                                                              dynamic>
+                                                                          data1 =
+                                                                          queryDocumentSnapshot
+                                                                              .data();
 
-                                                      FirebaseFirestore.instance
-                                                          .collection('users')
-                                                          .doc(data.docs[index]
-                                                              ['user_id'])
-                                                          .update({
-                                                        'reviews':
-                                                            data1['reviews'] +
-                                                                1,
-                                                        'ratings':
-                                                            data1['ratings'] +
-                                                                1,
-                                                      });
-                                                    }
+                                                                      FirebaseFirestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'users')
+                                                                          .doc(data.docs[index]
+                                                                              [
+                                                                              'user_id'])
+                                                                          .update({
+                                                                        'reviews':
+                                                                            data1['reviews'] +
+                                                                                1,
+                                                                        'ratings':
+                                                                            data1['ratings'] +
+                                                                                _rating,
+                                                                      });
+                                                                    }
 
-                                                    Navigator.pop(context);
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                    Navigator.pop(
+                                                                        context);
+
+                                                                    print(
+                                                                        _rating);
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        });
                                                   },
                                                   leading: TextRegular(
                                                       text: 'Rate Trader',
