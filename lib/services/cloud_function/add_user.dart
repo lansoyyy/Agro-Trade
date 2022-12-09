@@ -22,7 +22,9 @@ Future addUser(
     'idback': idback,
     'id': docUser.id,
     'profile': 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-    'status': 'Not Verified'
+    'status': 'Not Verified',
+    'ratings': 0.00,
+    'reviews': 0,
   };
 
   await docUser.set(json);
