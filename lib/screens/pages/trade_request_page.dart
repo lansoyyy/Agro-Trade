@@ -55,6 +55,11 @@ class TradeRequestPage extends StatelessWidget {
                                           ListTile(
                                             onTap: () {
                                               FirebaseFirestore.instance
+                                                  .collection('products')
+                                                  .doc(data.docs[index]
+                                                      ['prodId'])
+                                                  .delete();
+                                              FirebaseFirestore.instance
                                                   .collection('offer')
                                                   .doc(data.docs[index].id)
                                                   .update({
