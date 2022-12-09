@@ -137,6 +137,13 @@ class _ProfileScreenState extends State<TraderProfile> {
                   ),
 
                   const SizedBox(
+                    height: 10,
+                  ),
+                  TextBold(
+                      text: 'Ratings : ' + data['ratings'].toString() + '★',
+                      fontSize: 16,
+                      color: Colors.amber),
+                  const SizedBox(
                     height: 30,
                   ),
                   TextBold(

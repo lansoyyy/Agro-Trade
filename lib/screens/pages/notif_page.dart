@@ -44,7 +44,7 @@ class NotifPage extends StatelessWidget {
                       child: ListTile(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const TradeRequestPage()));
+                              builder: (context) => TradeRequestPage()));
                         },
                         tileColor: Colors.white,
                         leading: CircleAvatar(

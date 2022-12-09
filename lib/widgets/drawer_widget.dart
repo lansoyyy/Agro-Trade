@@ -126,7 +126,7 @@ class _MyDrawerState extends State<DrawerWidget> {
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const TradeRequestPage()));
+                    builder: (context) => TradeRequestPage()));
               },
             ),
             ListTile(

@@ -143,6 +143,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         fontSize: 12,
                         color: Colors.black),
                   ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextBold(
+                      text: 'Ratings : ' + data['ratings'].toString() + '★',
+                      fontSize: 16,
+                      color: Colors.amber),
                   const SizedBox(
                     height: 30,
                   ),

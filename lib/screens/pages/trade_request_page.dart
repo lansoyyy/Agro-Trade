@@ -7,7 +7,9 @@ import '../../widgets/appbar_widget.dart';
 import '../../widgets/drawer_widget.dart';
 
 class TradeRequestPage extends StatelessWidget {
-  const TradeRequestPage({Key? key}) : super(key: key);
+  TradeRequestPage({Key? key}) : super(key: key);
+
+  var hasRated = false;
 
   @override
   Widget build(BuildContext context) {
@@ -101,9 +103,60 @@ class TradeRequestPage extends StatelessWidget {
                                       ),
                                     )
                                   : SizedBox(
-                                      height: 80,
+                                      height: 150,
                                       child: Column(
                                         children: [
+                                          data.docs[index]['status'] !=
+                                                  'Rejected'
+                                              ? ListTile(
+                                                  onTap: () async {
+                                                    var collection =
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection('users')
+                                                            .where('id',
+                                                                isEqualTo: data
+                                                                            .docs[
+                                                                        index][
+                                                                    'user_id']);
+
+                                                    var querySnapshot =
+                                                        await collection.get();
+
+                                                    for (var queryDocumentSnapshot
+                                                        in querySnapshot.docs) {
+                                                      Map<String, dynamic>
+                                                          data1 =
+                                                          queryDocumentSnapshot
+                                                              .data();
+
+                                                      FirebaseFirestore.instance
+                                                          .collection('users')
+                                                          .doc(data.docs[index]
+                                                              ['user_id'])
+                                                          .update({
+                                                        'reviews':
+                                                            data1['reviews'] +
+                                                                1,
+                                                        'ratings':
+                                                            data1['ratings'] +
+                                                                1,
+                                                      });
+                                                    }
+
+                                                    Navigator.pop(context);
+                                                  },
+                                                  leading: TextRegular(
+                                                      text: 'Rate Trader',
+                                                      fontSize: 14,
+                                                      color: Colors.black),
+                                                  trailing: const Icon(
+                                                    Icons.star,
+                                                    color: Colors.amber,
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                          const Divider(),
                                           ListTile(
                                             onTap: () {
                                               FirebaseFirestore.instance
