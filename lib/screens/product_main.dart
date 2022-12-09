@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:marketdo/screens/pages/add_offer_page.dart';
+import 'package:marketdo/screens/pages/trader_profile.dart';
 import 'package:marketdo/screens/tabs/convo_page.dart';
 import 'package:marketdo/widgets/appbar_widget.dart';
 import 'package:marketdo/widgets/button_widget.dart';
@@ -217,6 +218,20 @@ class ProductMain extends StatelessWidget {
                             ],
                           );
                         }),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Center(
+                        child: ButtonWidget(
+                            onPressed: () {
+                              box.write('uid', data['uid']);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const TraderProfile()));
+                            },
+                            text: "View Trader's Profile")),
+                    const SizedBox(
+                      height: 30,
+                    ),
                   ],
                 ),
               ),

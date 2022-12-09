@@ -41,7 +41,7 @@ dependencies:
   firebase_core:
   cloud_firestore:
   firebase_storage:
-  image_picker:
+  image_picker: ^0.8.6
   riverpod:
   flutter_riverpod:
   material_floating_search_bar:
