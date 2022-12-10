@@ -77,6 +77,12 @@ class _MyPostPageState extends State<MyPostPage> {
         });
 
         Navigator.of(context).pop();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(seconds: 5),
+            content: Text('Uploaded Succesfully!'),
+          ),
+        );
       } on firebase_storage.FirebaseException catch (error) {
         if (kDebugMode) {
           print(error);
@@ -248,13 +254,14 @@ class _MyPostPageState extends State<MyPostPage> {
                                               'prodName': prodName == ''
                                                   ? data.docs[i]['prodName']
                                                   : prodName,
-                                              'prodDesc': prodName == ''
+                                              'prodDesc': prodDesc == ''
                                                   ? data.docs[i]['prodDesc']
                                                   : prodDesc,
-                                              'imageURL': prodName == ''
+                                              'imageURL': imageURL == ''
                                                   ? data.docs[i]['imageURL']
                                                   : imageURL,
                                             });
+                                            Navigator.pop(context);
                                           },
                                           text: 'Edit Post'),
                                     ],
