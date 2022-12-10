@@ -35,6 +35,7 @@ class _AddProductPageState extends State<AddProductPage> {
   late File imageFile;
 
   late String imageURL = '';
+  List<String> imageUrls = [];
 
   Future<void> uploadPicture(String inputSource) async {
     final picker = ImagePicker();
@@ -73,11 +74,15 @@ class _AddProductPageState extends State<AddProductPage> {
             .ref('Products/$fileName')
             .getDownloadURL();
 
+        imageUrls.add(imageURL);
+
         setState(() {
           hasLoaded = true;
         });
 
         Navigator.of(context).pop();
+
+        print(imageUrls.toString() + ' images');
       } on firebase_storage.FirebaseException catch (error) {
         if (kDebugMode) {
           print(error);
@@ -93,20 +98,6 @@ class _AddProductPageState extends State<AddProductPage> {
   var dropDownValue = 1;
 
   var productCategory = 'Vegetables & Fruits';
-
-  final ImagePicker imagePicker = ImagePicker();
-
-  List<XFile>? imageFileList = [];
-
-  void selectImages() async {
-    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
-    if (selectedImages!.isNotEmpty) {
-      imageFileList!.addAll(selectedImages);
-    }
-    setState(() {});
-
-    print(selectedImages);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,8 +127,7 @@ class _AddProductPageState extends State<AddProductPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // uploadPicture('gallery');
-                      selectImages();
+                      uploadPicture('gallery');
                     },
                     child: Container(
                       child: Column(
@@ -388,7 +378,7 @@ class _AddProductPageState extends State<AddProductPage> {
                                                   prodName,
                                                   prodDesc,
                                                   prefferedItem,
-                                                  imageURL,
+                                                  imageUrls,
                                                   productCategory);
                                               Navigator.of(context)
                                                   .pushReplacement(

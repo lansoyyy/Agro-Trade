@@ -86,7 +86,7 @@ class ViewProductPage extends StatelessWidget {
                                 image: DecorationImage(
                                   opacity: 120,
                                   image: NetworkImage(
-                                    data.docs[index]['imageURL'],
+                                    data.docs[index]['imageURL'][0],
                                   ),
                                   fit: BoxFit.cover,
                                 ),

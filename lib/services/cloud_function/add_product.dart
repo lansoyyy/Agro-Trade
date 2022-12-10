@@ -8,7 +8,7 @@ Future addProduct(
   String prodName,
   String prodDesc,
   String prefferedItem,
-  String imageURL,
+  List imageURL,
   String categ,
 ) async {
   final docUser = FirebaseFirestore.instance.collection('products').doc();

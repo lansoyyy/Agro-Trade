@@ -198,7 +198,7 @@ class HomeTab extends StatelessWidget {
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        data.docs[index]['imageURL'],
+                                        data.docs[index]['imageURL'][0],
                                       ),
                                       fit: BoxFit.cover,
                                     ),

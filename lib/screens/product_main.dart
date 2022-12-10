@@ -60,7 +60,7 @@ class ProductMain extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(
-                              data['imageURL'],
+                              data['imageURL'][0],
                             ),
                             fit: BoxFit.cover,
                           ),
