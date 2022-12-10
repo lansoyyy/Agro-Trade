@@ -275,7 +275,7 @@ class _AddProductPageState extends State<AddOfferPage> {
                                                         data1['address'],
                                                         data1['prodName'],
                                                         data1['prodDesc'],
-                                                        data1['imageURL'],
+                                                        data1['imageURL'][0],
                                                         data1['uid'],
                                                         prodName,
                                                         prodDesc,

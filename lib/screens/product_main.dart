@@ -55,7 +55,7 @@ class ProductMain extends StatelessWidget {
                     ),
                     SizedBox(
                       height: 300,
-                      width: 500,
+                      width: 600,
                       child: ListView.builder(
                           itemCount: data['imageURL'].length,
                           scrollDirection: Axis.horizontal,
