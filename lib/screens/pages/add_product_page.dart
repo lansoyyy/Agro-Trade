@@ -94,6 +94,20 @@ class _AddProductPageState extends State<AddProductPage> {
 
   var productCategory = 'Vegetables & Fruits';
 
+  final ImagePicker imagePicker = ImagePicker();
+
+  List<XFile>? imageFileList = [];
+
+  void selectImages() async {
+    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
+    if (selectedImages!.isNotEmpty) {
+      imageFileList!.addAll(selectedImages);
+    }
+    setState(() {});
+
+    print(selectedImages);
+  }
+
   @override
   Widget build(BuildContext context) {
     final Stream<DocumentSnapshot> userData = FirebaseFirestore.instance
@@ -122,7 +136,8 @@ class _AddProductPageState extends State<AddProductPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      uploadPicture('gallery');
+                      // uploadPicture('gallery');
+                      selectImages();
                     },
                     child: Container(
                       child: Column(
