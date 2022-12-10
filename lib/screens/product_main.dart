@@ -53,21 +53,29 @@ class ProductMain extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Center(
-                      child: Container(
-                        height: 200,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              data['imageURL'][0],
-                            ),
-                            fit: BoxFit.cover,
-                          ),
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
+                    SizedBox(
+                      height: 300,
+                      width: 500,
+                      child: ListView.builder(
+                          itemCount: data['imageURL'].length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: const EdgeInsets.only(left: 5, right: 5),
+                              height: 200,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    data['imageURL'][index],
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                            );
+                          }),
                     ),
                     const SizedBox(
                       height: 20,

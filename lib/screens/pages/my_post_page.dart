@@ -149,27 +149,10 @@ class _MyPostPageState extends State<MyPostPage> {
                               builder: (context) {
                                 return Container(
                                   color: Colors.grey[200],
-                                  height: 500,
+                                  height: 300,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          uploadPicture('gallery');
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.black,
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    data.docs[i]['imageURL']),
-                                                fit: BoxFit.cover),
-                                          ),
-                                          margin: const EdgeInsets.all(2.5),
-                                          height: 120,
-                                          width: 100,
-                                        ),
-                                      ),
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             30, 10, 30, 10),
@@ -257,9 +240,6 @@ class _MyPostPageState extends State<MyPostPage> {
                                               'prodDesc': prodDesc == ''
                                                   ? data.docs[i]['prodDesc']
                                                   : prodDesc,
-                                              'imageURL': imageURL == ''
-                                                  ? data.docs[i]['imageURL']
-                                                  : imageURL,
                                             });
                                             Navigator.pop(context);
                                           },
@@ -273,7 +253,8 @@ class _MyPostPageState extends State<MyPostPage> {
                           decoration: BoxDecoration(
                             color: Colors.black,
                             image: DecorationImage(
-                                image: NetworkImage(data.docs[i]['imageURL']),
+                                image:
+                                    NetworkImage(data.docs[i]['imageURL'][0]),
                                 fit: BoxFit.cover),
                           ),
                           margin: const EdgeInsets.all(2.5),

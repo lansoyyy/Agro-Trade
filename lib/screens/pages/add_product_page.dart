@@ -82,7 +82,13 @@ class _AddProductPageState extends State<AddProductPage> {
 
         Navigator.of(context).pop();
 
-        print(imageUrls.toString() + ' images');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(seconds: 5),
+            content: Text(
+                'Image of Item Added\nYou can upload multiple item images'),
+          ),
+        );
       } on firebase_storage.FirebaseException catch (error) {
         if (kDebugMode) {
           print(error);
