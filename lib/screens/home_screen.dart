@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as bdg;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const NotifPage()));
             },
-            icon: Badge(
+            icon: bdg.Badge(
               badgeContent: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('notif')
