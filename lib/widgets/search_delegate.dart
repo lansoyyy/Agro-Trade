@@ -114,7 +114,7 @@ class SearchMessages extends SearchDelegate {
                           maxRadius: 25,
                           backgroundColor: Colors.green[900],
                           backgroundImage:
-                              NetworkImage(data.docs[index]['imageURL']),
+                              NetworkImage(data.docs[index]['imageURL'][0]),
                         ),
                       ),
                     );
