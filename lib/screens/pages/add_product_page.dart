@@ -105,6 +105,8 @@ class _AddProductPageState extends State<AddProductPage> {
 
   var productCategory = 'Vegetables & Fruits';
 
+  late String unit = '';
+
   @override
   Widget build(BuildContext context) {
     final Stream<DocumentSnapshot> userData = FirebaseFirestore.instance
@@ -180,6 +182,36 @@ class _AddProductPageState extends State<AddProductPage> {
                           borderRadius: BorderRadius.circular(5),
                         ),
                         labelText: 'Product Name',
+                        labelStyle: const TextStyle(
+                          fontFamily: 'QRegular',
+                          color: Colors.black,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                    child: TextFormField(
+                      style: const TextStyle(
+                          color: Colors.black, fontFamily: 'QRegular'),
+                      onChanged: (_input) {
+                        unit = _input;
+                      },
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(width: 1, color: Colors.white),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(width: 1, color: Colors.black),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        labelText: 'Unit of Measurement',
                         labelStyle: const TextStyle(
                           fontFamily: 'QRegular',
                           color: Colors.black,
@@ -385,7 +417,8 @@ class _AddProductPageState extends State<AddProductPage> {
                                                   prodDesc,
                                                   prefferedItem,
                                                   imageUrls,
-                                                  productCategory);
+                                                  productCategory,
+                                                  unit);
                                               Navigator.of(context)
                                                   .pushReplacement(
                                                       MaterialPageRoute(

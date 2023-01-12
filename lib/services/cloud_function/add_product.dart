@@ -2,15 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 Future addProduct(
-  String name,
-  String contactNumber,
-  String address,
-  String prodName,
-  String prodDesc,
-  String prefferedItem,
-  List imageURL,
-  String categ,
-) async {
+    String name,
+    String contactNumber,
+    String address,
+    String prodName,
+    String prodDesc,
+    String prefferedItem,
+    List imageURL,
+    String categ,
+    String unit) async {
   final docUser = FirebaseFirestore.instance.collection('products').doc();
 
   var dt = DateTime.now();
@@ -26,6 +26,7 @@ Future addProduct(
     'id': docUser.id,
     'uid': FirebaseAuth.instance.currentUser!.uid,
     'date': dt.month,
+    'unit': unit
   };
 
   await docUser.set(json);
