@@ -20,13 +20,13 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   var _value = false;
-  late String name;
+  late String name = '';
 
-  late String contactNumber;
+  late String contactNumber = '';
   late String email;
   late String password;
 
-  late String address;
+  late String address = '';
 
   var hasLoaded = false;
 
@@ -442,74 +442,90 @@ class _SignupPageState extends State<SignupPage> {
               visible: _value,
               child: ButtonWidget(
                   onPressed: () async {
-                    try {
-                      await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                              email: email, password: password);
+                    if (name == '' ||
+                        contactNumber == '' ||
+                        address == '' ||
+                        imageURL == '' ||
+                        imageURL2 == '') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: TextRegular(
+                              text: 'Cannot Procceed! All fields are required',
+                              fontSize: 12,
+                              color: Colors.white),
+                        ),
+                      );
+                    } else {
+                      try {
+                        await FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                                email: email, password: password);
 
-                      showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (context) {
-                            return Dialog(
-                              child: SizedBox(
-                                  height: 300,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(
-                                        Icons.check_circle_outline_outlined,
-                                        size: 75,
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      TextBold(
-                                          text: 'Registered Succesfully!',
-                                          fontSize: 18,
-                                          color: Colors.black),
-                                      const SizedBox(
-                                        height: 50,
-                                      ),
-                                      ButtonWidget(
-                                          onPressed: () {
-                                            addUser(
-                                                name,
-                                                contactNumber,
-                                                address,
-                                                imageURL,
-                                                imageURL2,
-                                                email);
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            LoginPage()));
-                                          },
-                                          text: 'Continue'),
-                                    ],
-                                  )),
-                            );
-                          });
-                    } catch (e) {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                content: TextRegular(
-                                    text: "$e",
-                                    color: Colors.black,
-                                    fontSize: 12),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(true),
-                                    child: TextBold(
-                                        text: 'Close',
-                                        color: Colors.black,
-                                        fontSize: 12),
-                                  ),
-                                ],
-                              ));
+                        showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                child: SizedBox(
+                                    height: 300,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.check_circle_outline_outlined,
+                                          size: 75,
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        TextBold(
+                                            text: 'Registered Succesfully!',
+                                            fontSize: 18,
+                                            color: Colors.black),
+                                        const SizedBox(
+                                          height: 50,
+                                        ),
+                                        ButtonWidget(
+                                            onPressed: () {
+                                              addUser(
+                                                  name,
+                                                  contactNumber,
+                                                  address,
+                                                  imageURL,
+                                                  imageURL2,
+                                                  email);
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              LoginPage()));
+                                            },
+                                            text: 'Continue'),
+                                      ],
+                                    )),
+                              );
+                            });
+                      } catch (e) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  content: TextRegular(
+                                      text: "$e",
+                                      color: Colors.black,
+                                      fontSize: 12),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(true),
+                                      child: TextBold(
+                                          text: 'Close',
+                                          color: Colors.black,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ));
+                      }
                     }
                   },
                   text: 'Register'),
