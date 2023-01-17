@@ -130,6 +130,18 @@ class _MyDrawerState extends State<DrawerWidget> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.price_change),
+              title: TextBold(
+                text: 'Price Guidelines',
+                fontSize: 12,
+                color: Colors.black,
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => TradeRequestPage()));
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.logout),
               title: TextBold(
                 text: 'Logout',
